@@ -1,0 +1,24 @@
+.siteHeader {
+    margin: 8vw auto;
+    max-width: $max-width;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__nav {
+    }
+    &__logo {
+        margin: 0 0 1.6rem 0;
+        @media screen and (min-width: $ipad) {
+            margin: 0 auto 2rem auto;
+        }
+        @media screen and (min-width: $ipad) {
+            margin: 0 auto 3rem auto;
+        }
+    }
+    &__about {
+        display: none;
+    }
+    &__heading {
+        margin: 0;
+    }
+}

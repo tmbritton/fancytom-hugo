@@ -1,0 +1,12 @@
+<li class="gridItem">
+    <a 
+        class="gridItem__link"
+        href="{{ .Page.Permalink }}">
+        <img
+            class="gridItem__image" 
+            src="https://res.cloudinary.com/{{ $.Site.Params.cloudinaryUserId }}/image/upload/w_{{ .Site.Params.defaultImageWidth}},ar_1:1,c_fill,g_auto/{{ .Params.cloudinaryId }}.jpg"
+            alt="{{ .Page.Title }}"
+            title="{{ .Page.Title }}"
+        >
+    </a>
+</li>

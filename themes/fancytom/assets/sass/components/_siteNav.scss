@@ -1,0 +1,14 @@
+.siteNav {
+    &__list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        @media screen and (min-width: $ipad) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__listItem {
+        font-size: 2.4rem;
+    }
+}

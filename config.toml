@@ -1,0 +1,15 @@
+baseURL = "https://fancytom.com/"
+languageCode = "en-us"
+title = "Fancy Tom"
+theme = "fancytom"
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+  medium = "mediums"
+
+[params]
+  cloudinaryUserId = "dodzkb914"
+  defaultImageWidth = "500"
+  fullImageWidth = "1000"

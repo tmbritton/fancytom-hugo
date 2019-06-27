@@ -1,0 +1,34 @@
+{{ define "main" }}
+    <h2 class="main__title">{{ .Page.Title }}</h2>
+    <form name="contact" method="POST" class="contactForm pure-form pure-form-aligned" netlify netlify-honeypot="phone">
+        
+        <div class="pure-control-group">
+            <label for="name">Name:</label> 
+            <input type="text" name="name" id="name" required />
+        </div>
+
+        <div class="pure-control-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required />
+        </div>
+
+        <div style="display:none">
+            <label>Don’t fill this out if you're human: <input name="phone" type="text" /></label>
+        </div>
+
+        <div class="pure-control-group">
+            <label for="message">Message:</label>
+            <textarea name="message" id="message"></textarea>
+        </div>
+    
+        <div class="pure-controls">
+            <label for="newsletter" class="pure-checkbox">
+                <input name="newsletter" id="newsletter" type="checkbox" value="1" checked>
+                Sign up for the Fancy Tom email newsletter?
+            </label>
+            <button class="pure-button" type="submit">Send</button>
+        </div>
+
+    </form>
+    {{ .Page.Content }}
+{{ end }}

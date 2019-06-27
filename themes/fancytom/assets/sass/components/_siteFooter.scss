@@ -1,0 +1,20 @@
+.siteFooter {
+    max-width: $max-width;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 1px solid $light-gray;
+    @media screen and (min-width: $ipad){
+        flex-direction: row;
+    }
+    &__copyright {
+        margin-bottom: 0;
+    }
+    &__email {
+        margin-bottom: 0;
+    }
+    &__socialMedia {
+        margin_bottom: 0;
+    }
+}

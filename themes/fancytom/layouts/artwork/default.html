@@ -1,0 +1,12 @@
+{{ define "main" }}
+    <h2 class="main__heading">{{ .Page.Title }}</h2>
+    <img 
+        class="main__artwork" 
+        src="https://res.cloudinary.com/{{ $.Site.Params.cloudinaryUserId }}/image/upload/w_{{ .Site.Params.fullImageWidth}},c_scale/{{ .Params.cloudinaryId }}.jpg"
+        alt="Image of {{ .Page.Title }}"
+        title="{{ .Page.Title }}"
+    >
+    <div class="main__text">
+        {{ .Page.Content }}
+    </div>
+{{ end }}

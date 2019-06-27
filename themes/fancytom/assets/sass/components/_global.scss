@@ -1,0 +1,27 @@
+html {
+    font-size: 62.5%;
+}
+
+::selection, ::-moz-selection {
+    background: $highlight;
+}
+
+body {
+   font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
+   font-size: 2rem;
+   margin: 0;
+   color: $body-text;
+}
+
+a {
+    color: $body-text;
+    transition: color .2s ease-in-out;
+    &:hover {
+        color: $highlight;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
