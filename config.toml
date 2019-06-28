@@ -2,7 +2,6 @@ baseURL = "https://fancytom.com/"
 languageCode = "en-us"
 title = "Fancy Tom"
 theme = "fancytom"
-description = "Portfolio website of artist extraordinaire Fancy Tom"
 
 [taxonomies]
   category = "categories"
@@ -14,3 +13,4 @@ description = "Portfolio website of artist extraordinaire Fancy Tom"
   cloudinaryUserId = "dodzkb914"
   defaultImageWidth = "500"
   fullImageWidth = "1000"
+  description = "Portfolio website of artist extraordinaire Fancy Tom"
