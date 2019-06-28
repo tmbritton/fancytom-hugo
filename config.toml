@@ -2,6 +2,7 @@ baseURL = "https://fancytom.com/"
 languageCode = "en-us"
 title = "Fancy Tom"
 theme = "fancytom"
+description = "Portfolio website of artist extraordinaire Fancy Tom"
 
 [taxonomies]
   category = "categories"
