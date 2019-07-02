@@ -1,0 +1,5 @@
+{{ define "main" }}
+    <h2>{{ .Page.Title }}</h2>
+    <span class="main-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+    {{ .Page.Content }}
+{{ end }}
