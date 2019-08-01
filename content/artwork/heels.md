@@ -6,7 +6,7 @@ cloudinaryId: "heels_ztvk1p"
 categories: ["Illustration"]
 tags: [""]
 mediums: ["Digital"]
-frontpage: true
+frontpage: false
 type: "artwork"
 layout: "default"
 ---
