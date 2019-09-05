@@ -6,7 +6,7 @@ cloudinaryId: "selfie-of-liberty"
 categories: ["Illustration", "Editorial"]
 tags: ["Photoshop"]
 mediums: ["Digital"]
-frontpage: true
+frontpage: false
 type: "artwork"
 layout: "default"
 ---
