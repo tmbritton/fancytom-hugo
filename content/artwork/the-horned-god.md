@@ -10,4 +10,4 @@ frontpage: true
 type: "artwork"
 layout: "default"
 ---
-The Horned God is a very fancy lad.
+Cernunnos, The Horned God. In certain belief systems he represents the male half of the dualistic male/female divinity. The iconography dates back to 13000 BC.
