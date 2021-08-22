@@ -1,0 +1,11 @@
+{{ define "main" }}
+    <section class="artGrid">
+        <ul class="artGrid__list">
+        {{ range where .Site.Pages "Params.frontpage" true }}
+            {{ if (ne .Params.type "comic") }}
+                {{- partial "gridItem.html" . -}}
+            {{ end }}
+        {{ end }}
+        </ul>
+    </section>
+{{ end }}

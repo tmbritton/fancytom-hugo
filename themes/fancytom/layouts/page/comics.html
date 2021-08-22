@@ -1,0 +1,12 @@
+{{ define "main" }}
+    <h1>Comics</h1>
+    <section class="artGrid">
+        <ul class="artGrid__list">
+        {{ range where .Site.Pages "Params.type" "comic" }}
+            {{ if (not .Params.draft) }}
+                {{- partial "comicListItem.html" . -}}
+            {{ end }}
+        {{ end }}
+        </ul>
+    </section>
+{{ end }}

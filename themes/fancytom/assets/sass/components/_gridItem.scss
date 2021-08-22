@@ -17,6 +17,9 @@
     }
     &__image {
         min-width: 50%
+        &--comic {
+            border: 1px solid #ccc;
+        }
     }
     &__link {
         font-size: 0;
