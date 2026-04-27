@@ -3,9 +3,9 @@ title: "Portrait of Zaftigg Von BonBon"
 date: 2017-09-21T15:57:45-05:00
 draft: false
 cloudinaryId: "48-zaftigg-von-bonbon_z3zhqd"
-categories: ["Portrait"]
-tags: []
-mediums: ["Oil"]
+category: ["Portrait"]
+tag: []
+medium: ["Oil"]
 frontpage: true
 type: "artwork"
 layout: "default"

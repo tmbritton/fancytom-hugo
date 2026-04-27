@@ -1,0 +1,26 @@
+{{ define "main" }}
+    <div class="bg-chaos text-[20vw] -top-10 -left-10 rotate-12 opacity-20">INDEX</div>
+    <div class="bg-chaos text-[15vw] bottom-1/4 -right-20 -rotate-6 opacity-10">FILTER</div>
+
+    <main class="px-6 py-20 max-w-7xl mx-auto relative z-10">
+        <div class="space-y-12">
+            <div class="space-y-4">
+                <h1 class="carson-title text-7xl md:text-9xl font-black leading-none">
+                    {{ .Title }} <br>
+                    <span class="text-transparent" style="-webkit-text-stroke: 3px black;">INDEX</span>
+                </h1>
+                <p class="mono-font text-sm uppercase font-bold opacity-60 border-l-4 border-black pl-4">
+                    Browse by {{ .Title }}
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+                {{ range .Data.Terms }}
+                <a href="{{ .Page.RelPermalink }}" class="punk-block px-4 py-2 rotate-[-1deg] hover:rotate-0 transition-all uppercase font-black mono-font text-sm">
+                    {{ .Page.Title }} <span class="opacity-50 ml-2">({{ .Count }})</span>
+                </a>
+                {{ end }}
+            </div>
+        </div>
+    </main>
+{{ end }}

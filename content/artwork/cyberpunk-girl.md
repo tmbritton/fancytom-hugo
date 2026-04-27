@@ -3,9 +3,9 @@ title: "Cyberpunk Girl"
 date: 2009-03-03T14:44:48-05:00
 draft: false
 cloudinaryId: "cyber-girl"
-categories: ["Illustration"]
-tags: ["scifi"]
-mediums: ["Digital"]
+category: ["Illustration"]
+tag: ["scifi"]
+medium: ["Digital"]
 frontpage: true
 type: "artwork"
 layout: "default"

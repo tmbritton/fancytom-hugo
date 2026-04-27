@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body class="p-0 m-0">
+    {{ partial "nav.html" . }}
+    
+    {{ block "main" . }}
+        <!-- Main content goes here -->
+    {{ end }}
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" onclick="this.style.display='none'">
+        <div id="lightbox-close">CLOSE X</div>
+        <img id="lightbox-img" src="" alt="Full size image">
+    </div>
+    {{ partial "lightbox.html" . }}
+    {{ partial "streak.html" . }}
+
+    {{ partial "footer.html" . }}
+</body>
+</html>

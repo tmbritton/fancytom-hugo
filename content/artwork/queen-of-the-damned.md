@@ -3,9 +3,9 @@ title: "Queen of the Damned"
 date: 2019-08-01T09:53:17-05:00
 draft: false
 cloudinaryId: "queen-of-the-damned"
-categories: ["Illustration", "Satan and Titties"]
-tags: []
-mediums: ["Oil"]
+category: ["Illustration", "Satan and Titties"]
+tag: []
+medium: ["Oil"]
 frontpage: true
 type: "artwork"
 layout: "default"

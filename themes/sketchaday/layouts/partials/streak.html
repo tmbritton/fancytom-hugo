@@ -1,0 +1,54 @@
+<script>
+    function calculateStreak() {
+        const container = document.getElementById('streak-container');
+        if (!container) return;
+        
+        const datesStr = container.getAttribute('data-dates');
+        if (!datesStr) return;
+        
+        // Create a Set of dates (YYYY-MM-DD) for O(1) lookup
+        const dateSet = new Set(
+            datesStr.split(',')
+                .filter(d => d !== '')
+        );
+            
+        if (dateSet.size === 0) return;
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        const formatDate = (date) => date.toISOString().split('T')[0];
+
+        const todayStr = formatDate(today);
+        const yesterdayStr = formatDate(yesterday);
+
+        // If neither today nor yesterday has a post, the streak is broken.
+        if (!dateSet.has(todayStr) && !dateSet.has(yesterdayStr)) {
+            updateStreakDisplay(0);
+            return;
+        }
+
+        // Determine starting point for the count
+        let checkDate = dateSet.has(todayStr) ? new Date(today) : new Date(yesterday);
+        let streak = 0;
+
+        while (dateSet.has(formatDate(checkDate))) {
+            streak++;
+            checkDate.setDate(checkDate.getDate() - 1);
+        }
+
+        updateStreakDisplay(streak);
+    }
+
+    function updateStreakDisplay(value) {
+        const streakValue = document.getElementById('streak-value');
+        if (streakValue) {
+            streakValue.innerText = value;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateStreak);
+</script>

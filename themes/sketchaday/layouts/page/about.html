@@ -1,0 +1,88 @@
+{{ define "main" }}
+    <div class="px-6 py-20 max-w-7xl mx-auto relative z-10">
+        <div class="flex flex-col lg:flex-row gap-16 items-start">
+            
+            <!-- Left Column: The ID -->
+            <div class="w-full lg:w-1/3 space-y-12">
+                <div class="punk-block p-3 rotate-3">
+                    <img src="https://res.cloudinary.com/dodzkb914/image/upload/w_400,ar_1:1,c_fill,g_auto/cyber-girl.jpg" class="w-full h-auto grayscale contrast-125">
+                </div>
+                <div class="mono-font text-xs uppercase font-black opacity-70 leading-relaxed pl-4 border-l-8 border-black">
+                    ID: {{ .Site.Title }} <br>
+                    PRACTICE: DUAL-TRACK <br>
+                    SESSIONS: DAILY <br>
+                    GOAL: VISUAL EXPANSION
+                </div>
+            </div>
+
+            <!-- Right Column: The Meat -->
+            <div class="w-full lg:w-2/3 space-y-24">
+                
+                <div class="space-y-6">
+                    <h1 class="carson-title text-7xl md:text-9xl font-black leading-none">
+                        THE <br> <span class="bg-black text-white px-2">METHOD</span>
+                    </h1>
+                    <p class="marker-font text-3xl md:text-4xl text-stone-700 rotate-1">
+                        Two paths. One pencil.
+                    </p>
+                </div>
+
+                <!-- Section 1: The Workout -->
+                <div class="relative group">
+                    <div class="tape absolute -top-6 left-0 w-32 h-8 rotate-[-5deg] z-10"></div>
+                    <div class="punk-block p-8 rotate-[-1deg] space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="heavy-font text-4xl uppercase">01. The Workout</h2>
+                            <span class="mono-font text-xs font-black bg-black text-white px-2 py-1">SESSIONS: STRUCTURED</span>
+                        </div>
+                        <p class="text-xl leading-relaxed font-medium">
+                            Based on the <strong class="uppercase font-black underline">Dynamic Sketching</strong> principles of <span class="marker-font text-2xl">Peter Han</span>. 
+                            This is the mechanical grind. The art workout. 
+                        </p>
+                        <div class="bg-stone-100 p-4 border-2 border-dashed border-black mono-font text-sm uppercase font-bold">
+                            Objective: Visual Library Expansion. <br>
+                            Focus: Form, gesture, and the physics of the figure. <br>
+                            Includes: Dynamic sketching, anatomy studies, master copies, and figure work.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: The Play -->
+                <div class="relative group">
+                    <div class="tape absolute -top-6 right-0 w-32 h-8 rotate-[5deg] z-10"></div>
+                    <div class="punk-block p-8 rotate-1 space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="heavy-font text-4xl uppercase">02. The Play</h2>
+                            <span class="mono-font text-xs font-black bg-black text-white px-2 py-1">SESSIONS: AUTOMATIC</span>
+                        </div>
+                        <p class="text-xl leading-relaxed font-medium italic">
+                            Clear the mind. Kill the intention. Let the pencil move without a master. 
+                        </p>
+                        <p class="text-lg leading-relaxed font-medium">
+                            Inspired by the surrealists and occult artists like <span class="marker-font text-2xl">Austin Osman Spare</span>. 
+                            This is the act of plucking ideas from the universal subconscious—attuning to the muses, expressing the pure internal void.
+                        </p>
+                        <p class="text-lg leading-relaxed font-medium border-l-4 border-black pl-4 italic">
+                            The library is the fuel. As the structured studies grow, the automatic drawings evolve. The subconscious cannot manifest what the eye has not seen; by expanding the visual library, I expand the diversity of the void.
+                        </p>
+                        <div class="bg-black text-white p-4 mono-font text-sm uppercase font-bold rotate-[-1deg]">
+                            Objective: Subconscious expression. <br>
+                            Method: Automatic drawing / Zero intention.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Synthesis -->
+                <div class="pt-12 border-t-8 border-black flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="mono-font text-xs uppercase font-black opacity-60 text-center md:text-left">
+                        One day for the library. <br>
+                        One day for the void.
+                    </div>
+                    <a href="mailto:{{ .Site.Params.email | default "hello@fancytom.com" }}" class="marker-font text-4xl hover:text-stone-500 transition-all rotate-[-3deg] uppercase">
+                        Contact &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+{{ end }}

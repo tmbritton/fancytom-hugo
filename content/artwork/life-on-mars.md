@@ -3,9 +3,9 @@ title: "Life on Mars"
 date: 2019-06-10T15:15:03-05:00
 draft: false
 cloudinaryId: "life-on-mars"
-categories: ["Illustration"]
-tags: []
-mediums: ["Oil"]
+category: ["Illustration"]
+tag: []
+medium: ["Oil"]
 frontpage: true
 type: "artwork"
 layout: "default"

@@ -1,13 +1,13 @@
 baseURL = "https://fancytom.com/"
 languageCode = "en-us"
 title = "Fancy Tom"
-theme = "fancytom"
+theme = "sketchaday"
 
 [taxonomies]
   category = "categories"
-  series = "series"
-  tag = "tags"
   medium = "mediums"
+  tag = "tags"
+  series = "series"
 
 [params]
   cloudinaryUserId = "dodzkb914"

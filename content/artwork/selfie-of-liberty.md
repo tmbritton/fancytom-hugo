@@ -3,9 +3,9 @@ title: "Selfie of Liberty"
 date: 2015-09-01T14:43:40-05:00
 draft: false
 cloudinaryId: "selfie-of-liberty"
-categories: ["Illustration", "Editorial"]
-tags: ["Photoshop"]
-mediums: ["Digital"]
+category: ["Illustration", "Editorial"]
+tag: ["Photoshop"]
+medium: ["Digital"]
 frontpage: false
 type: "artwork"
 layout: "default"

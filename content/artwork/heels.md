@@ -3,9 +3,9 @@ title: "Heels"
 date: 2014-10-28T15:54:17-05:00
 draft: false
 cloudinaryId: "heels_ztvk1p"
-categories: ["Illustration"]
-tags: [""]
-mediums: ["Digital"]
+category: ["Illustration"]
+tag: [""]
+medium: ["Digital"]
 frontpage: false
 type: "artwork"
 layout: "default"
