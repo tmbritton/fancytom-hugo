@@ -8,9 +8,12 @@
         :root {
             --neon-yellow: #ccff00;
             --punk-pink: #ff00ff;
+            --acid-green: #47ff6f;
+            --xerox-blue: #1d4dff;
+            --paper: #b9b4a7;
         }
         body {
-            background-color: #b9b4a7; 
+            background: var(--paper);
             font-family: 'Inter', sans-serif;
             color: #000;
             overflow-x: hidden;
@@ -19,12 +22,26 @@
         .marker-font { font-family: 'Permanent Marker', cursive; }
         .mono-font { font-family: 'Courier Prime', monospace; }
         .heavy-font { font-family: 'Rubik Mono One', sans-serif; }
-        
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(255,0,255,.20), transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(71,255,111,.18), transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(29,77,255,.12), transparent 55%);
+            animation: driftBg 18s linear infinite alternate;
+            mix-blend-mode: multiply;
+        }
+
         body::after {
             content: "";
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.15;
+            inset: 0;
+            opacity: 0.14;
             z-index: 9999;
             pointer-events: none;
             background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
@@ -32,7 +49,7 @@
         }
 
         .carson-title {
-            line-height: 0.7;
+            line-height: 0.72;
             letter-spacing: -0.08em;
             text-transform: uppercase;
             transform: skewY(-2deg);
@@ -41,28 +58,61 @@
         .bg-chaos {
             position: absolute;
             font-weight: 900;
-            color: rgba(0,0,0,0.1);
+            color: rgba(0,0,0,.12);
             z-index: -1;
             white-space: nowrap;
             pointer-events: none;
             text-transform: uppercase;
             mix-blend-mode: multiply;
+            animation: jitter 2.2s steps(2, end) infinite;
         }
 
         .punk-card {
-            transition: all 0.1s ease-in-out;
+            transition: transform .14s ease, filter .14s ease;
             mix-blend-mode: normal;
+            transform-origin: center;
         }
         .punk-card:hover {
-            transform: scale(1.1) rotate(0deg) !important;
+            transform: scale(1.08) rotate(0deg) !important;
             z-index: 100;
-            filter: invert(1) contrast(2);
+            filter: none;
         }
 
-        .glitch-text:hover {
-            animation: glitch 0.2s infinite;
+        .glitch-text:hover,
+        .glitch-active {
+            animation: glitch .2s infinite;
             color: var(--neon-yellow);
-            background: black;
+            background: #000;
+        }
+
+        .ticker-wrap {
+            border-top: 4px solid #000;
+            border-bottom: 4px solid #000;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            transform: rotate(-1deg);
+        }
+        .ticker {
+            display: flex;
+            gap: 2rem;
+            white-space: nowrap;
+            will-change: transform;
+            animation: tickerMove 24s linear infinite;
+            font-family: 'Rubik Mono One', sans-serif;
+            font-size: .95rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            padding: .55rem 0;
+        }
+
+        .xerox {
+            filter: grayscale(1) contrast(1.35) brightness(.95);
+            mix-blend-mode: multiply;
+        }
+
+        .tear-edge {
+            clip-path: polygon(0 3%, 4% 0, 8% 4%, 12% 0, 16% 3%, 20% 0, 24% 4%, 28% 1%, 32% 5%, 36% 0, 40% 3%, 44% 1%, 48% 4%, 52% 0, 56% 3%, 60% 0, 64% 4%, 68% 1%, 72% 5%, 76% 0, 80% 3%, 84% 0, 88% 4%, 92% 0, 96% 3%, 100% 0, 100% 100%, 0 100%);
         }
 
         @keyframes glitch {
@@ -73,20 +123,39 @@
             80% { transform: translate(3px, -3px); }
             100% { transform: translate(0); }
         }
+        @keyframes tickerMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes driftBg { from { transform: translate3d(-1.5%, -1%, 0) scale(1.02); } to { transform: translate3d(1.5%, 1%, 0) scale(1.06); } }
+        @keyframes strobe { 0%, 100% { box-shadow: 8px 8px 0 #000; } 50% { box-shadow: -8px -8px 0 var(--punk-pink); } }
+        @keyframes jitter { 0%,100% { transform: translate(0,0); } 50% { transform: translate(2px,-1px); } }
 
         .tape {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,.35);
             backdrop-filter: blur(2px);
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            box-shadow: 0 0 5px rgba(0,0,0,.15);
         }
+
         .punk-block {
-            background: white;
-            border: 4px solid black;
-            box-shadow: 15px 15px 0px 0px black;
-            transition: all 0.2s ease;
+            background: #fff;
+            border: 4px solid #000;
+            box-shadow: 14px 14px 0 #000;
         }
-        .punk-block:hover {
-            transform: scale(1.02) rotate(0deg) !important;
+
+        .artwork-frame {
+            background: #fff;
+            border: 4px solid #000;
+            padding: .75rem;
+            box-shadow: 18px 18px 0 #000;
+            transform: rotate(1.2deg);
+            transition: transform .2s ease;
+        }
+        .artwork-frame:hover { transform: rotate(0deg) scale(1.01); }
+
+        .artwork-copy {
+            background: rgba(255,255,255,.93);
+            border: 4px solid #000;
+            box-shadow: 12px 12px 0 #000;
+            padding: 1.5rem;
+            position: relative;
         }
 
         /* Lightbox Styles */
@@ -94,7 +163,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,.9);
             z-index: 10000;
             cursor: zoom-out;
             justify-content: center;
@@ -105,7 +174,7 @@
             max-width: 100%;
             max-height: 100%;
             border: 8px solid white;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0,0,0,.5);
             object-fit: contain;
         }
         #lightbox-close {
@@ -118,6 +187,10 @@
             padding: 5px 15px;
             cursor: pointer;
             border: 4px solid black;
-            box-shadow: 5px 5px 0px 0px black;
+            box-shadow: 5px 5px 0 #000;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
         }
     </style>

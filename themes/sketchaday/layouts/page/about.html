@@ -1,4 +1,40 @@
 {{ define "main" }}
+    {{ $titleSource := "" }}
+    {{ range (where .Site.RegularPages "Section" "artwork") }}
+        {{ $titleSource = printf "%s %s" $titleSource .Title }}
+    {{ end }}
+    {{ $raw := $titleSource | lower }}
+    {{ $clean := replaceRE "[^a-z\\s]" " " $raw }}
+    {{ $tokens := split $clean " " }}
+    {{ $bgWords := slice }}
+    {{ range $tokens }}
+        {{ if and (ge (len .) 4) (not (in $bgWords .)) (ne . "the") (ne . "and") (ne . "with") (ne . "that") (ne . "from") (ne . "into") (ne . "also") (ne . "just") (ne . "very") }}
+            {{ if lt (len $bgWords) 16 }}
+                {{ $bgWords = $bgWords | append (upper .) }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    {{ if eq (len $bgWords) 0 }}{{ $bgWords = slice "METHOD" "WORKOUT" "PLAY" "PROCESS" }}{{ end }}
+    {{ $positions := slice
+        "text-[16vw] -top-8 right-[-2vw] rotate-[-8deg] opacity-15"
+        "text-[11vw] top-[14%] left-[-2vw] rotate-[10deg] opacity-12"
+        "text-[13vw] top-[30%] right-[4%] rotate-[-5deg] opacity-12"
+        "text-[10vw] top-[46%] left-[25%] rotate-[12deg] opacity-12"
+        "text-[14vw] top-[62%] right-[22%] rotate-[-10deg] opacity-12"
+        "text-[10vw] bottom-[8%] left-[8%] rotate-[6deg] opacity-12"
+        "text-[12vw] bottom-[-2vw] right-[6%] rotate-[4deg] opacity-15"
+    }}
+    {{ $cycles := slice "1.4s" "2.1s" "2.9s" "3.6s" "4.4s" }}
+    {{ $delays := slice "-0.3s" "-0.8s" "-1.4s" "-2.0s" "-2.7s" }}
+    {{ range $i, $word := $bgWords }}
+        {{ $cycle := index $cycles (mod $i (len $cycles)) }}
+        {{ $delay := index $delays (mod $i (len $delays)) }}
+        <div class="bg-chaos {{ index $positions (mod $i (len $positions)) }}"
+             style="animation-duration: {{ $cycle }}; animation-delay: {{ $delay }}; animation-timing-function: steps({{ add 2 (mod $i 4) }}, end);">
+            {{ $word }}
+        </div>
+    {{ end }}
+
     <div class="px-6 py-20 max-w-7xl mx-auto relative z-10">
         <div class="flex flex-col lg:flex-row gap-16 items-start">
             
@@ -9,9 +45,9 @@
                 </div>
                 <div class="mono-font text-xs uppercase font-black opacity-70 leading-relaxed pl-4 border-l-8 border-black">
                     ID: {{ .Site.Title }} <br>
-                    PRACTICE: DUAL-TRACK <br>
+                    PRACTICE: MECHANICAL AND METAPHYSICAL <br>
                     SESSIONS: DAILY <br>
-                    GOAL: VISUAL EXPANSION
+                    GOAL: TECHNICAL MASTERY, EGO LOSS 
                 </div>
             </div>
 

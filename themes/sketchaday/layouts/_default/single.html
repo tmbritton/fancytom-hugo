@@ -1,59 +1,74 @@
 {{ define "main" }}
-    <div class="px-6 py-20 max-w-7xl mx-auto relative z-10">
-        <div class="flex flex-col lg:flex-row gap-12 items-start">
-            
-            <!-- Main Content -->
-            <div class="w-full lg:w-2/3 space-y-8">
-                <h1 class="carson-title text-6xl md:text-8xl font-black leading-none mb-8">
+    <div class="px-6 py-16 max-w-7xl mx-auto relative z-10">
+        {{ $titleSource := "" }}
+        {{ range (where .Site.RegularPages "Section" "artwork") }}
+            {{ $titleSource = printf "%s %s" $titleSource .Title }}
+        {{ end }}
+        {{ $raw := $titleSource | lower }}
+        {{ $clean := replaceRE "[^a-z\\s]" " " $raw }}
+        {{ $tokens := split $clean " " }}
+        {{ $bgWords := slice }}
+        {{ range $tokens }}
+            {{ if and (ge (len .) 4) (not (in $bgWords .)) (ne . "the") (ne . "and") (ne . "with") (ne . "that") (ne . "this") (ne . "from") (ne . "their") (ne . "have") (ne . "being") (ne . "into") (ne . "also") (ne . "just") (ne . "very") (ne . "sketch") (ne . "portrait") }}
+                {{ if lt (len $bgWords) 24 }}
+                    {{ $bgWords = $bgWords | append (upper .) }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+        {{ if eq (len $bgWords) 0 }}{{ $bgWords = slice "ARTWORK" "PROCESS" "DRAWING" "TEXTURE" "RHYTHM" "FORM" }}{{ end }}
+        {{ $positions := slice
+            "text-[15vw] -top-8 right-0 rotate-[-7deg] opacity-25"
+            "text-[12vw] top-[8%] -left-8 rotate-[9deg] opacity-20"
+            "text-[16vw] top-[20%] right-[-4vw] rotate-[-12deg] opacity-20"
+            "text-[10vw] top-[30%] left-[20%] rotate-[18deg] opacity-20"
+            "text-[13vw] top-[40%] left-[38%] rotate-[-4deg] opacity-20"
+            "text-[11vw] top-[50%] left-[2%] rotate-[6deg] opacity-20"
+            "text-[14vw] top-[60%] right-[5%] rotate-[-9deg] opacity-20"
+            "text-[10vw] top-[68%] left-[34%] rotate-[13deg] opacity-20"
+            "text-[12vw] top-[76%] right-[30%] rotate-[-5deg] opacity-20"
+            "text-[14vw] bottom-[-2vw] left-[2%] rotate-[6deg] opacity-25"
+            "text-[10vw] bottom-[6%] right-[2%] rotate-[11deg] opacity-20"
+            "text-[9vw] top-[14%] left-[55%] rotate-[3deg] opacity-20"
+        }}
+        {{ $cycles := slice "1.3s" "1.9s" "2.6s" "3.4s" "4.1s" "5.3s" }}
+        {{ $delays := slice "-0.2s" "-0.7s" "-1.1s" "-1.8s" "-2.4s" "-3.0s" }}
+        {{ range $i, $word := $bgWords }}
+            {{ $cycle := index $cycles (mod $i (len $cycles)) }}
+            {{ $delay := index $delays (mod $i (len $delays)) }}
+            <div class="bg-chaos {{ index $positions (mod $i (len $positions)) }}"
+                 style="animation-duration: {{ $cycle }}; animation-delay: {{ $delay }}; animation-timing-function: steps({{ add 2 (mod $i 4) }}, end);">
+                {{ $word }}
+            </div>
+        {{ end }}
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <aside class="lg:col-span-7 space-y-6">
+                <h1 class="carson-title text-6xl md:text-8xl font-black leading-none mb-2 max-w-full">
                     {{ .Title }}
                 </h1>
-                <div class="punk-block p-8 space-y-6">
-                    <div class="flex justify-between items-center border-b-4 border-black pb-4 mb-6">
+                <div class="artwork-copy">
+                    <div class="tape absolute -top-3 -left-4 w-20 h-7 rotate-[-14deg]"></div>
+                    <div class="flex justify-between items-center border-b-4 border-black pb-3 mb-5">
                         <p class="mono-font text-sm uppercase font-black">{{ .Date.Format "January 02, 2006" }}</p>
-                        {{ with .Params.category }}
-                        <span class="bg-black text-white px-2 py-1 text-xs font-black uppercase">{{ . }}</span>
-                        {{ end }}
+                        {{ $label := "artwork" }}
+                        {{ with .Params.categories }}{{ $label = index . 0 }}{{ else }}{{ with .Params.category }}{{ $label = index . 0 }}{{ end }}{{ end }}
+                        <span class="bg-black text-white px-2 py-1 text-xs font-black uppercase">{{ $label }}</span>
                     </div>
-                    <div class="text-xl leading-relaxed font-medium">
+
+                    <div class="text-lg leading-relaxed font-medium space-y-4">
                         {{ .Content }}
                     </div>
                 </div>
-            </div>
+            </aside>
 
-            <!-- Sidebar/Visuals -->
-            <div class="w-full lg:w-1/3 space-y-8">
-                <div class="punk-block p-3 rotate-3 cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
-                    <img src="{{ .Params.image | default (printf "https://res.cloudinary.com/dodzkb914/image/upload/w_2000/%s" .Params.cloudinaryId) }}" class="w-full h-auto grayscale-0 contrast-125">
+            <div class="lg:col-span-5 lg:-mt-24">
+                <div class="artwork-frame cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="{{ .Params.image | default (printf "https://res.cloudinary.com/dodzkb914/image/upload/w_1400/%s" .Params.cloudinaryId) }}"
+                         class="w-full h-auto" alt="{{ .Title }}" loading="eager">
                 </div>
-                <!--
-                <div class="mono-font text-xs uppercase font-black opacity-60 pl-4 border-l-4 border-black space-y-2">
-                    <div class="flex items-center gap-2">
-                        <span class="opacity-40">CAT:</span> 
-                        <span>
-                        {{ range $i, $cat := .Params.category -}}
-                        {{ if $i }}, {{ end }}<a href="{{ printf "/categories/%s/" ($cat | urlize) }}" class="hover:underline hover:text-black">{{ $cat }}</a>
-                        {{- end }}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="opacity-40">MED:</span> 
-                        <span>
-                        {{ range $i, $med := .Params.medium -}}
-                        {{ if $i }}, {{ end }}<a href="{{ printf "/mediums/%s/" ($med | urlize) }}" class="hover:underline hover:text-black">{{ $med }}</a>
-                        {{- end }}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="opacity-40">TAG:</span> 
-                        <span>
-                        {{ range $i, $tag := .Params.tag -}}
-                        {{ if $i }}, {{ end }}<a href="{{ printf "/tags/%s/" ($tag | urlize) }}" class="hover:underline hover:text-black">{{ $tag }}</a>
-                        {{- end }}</span>
-                    </div>
-                </div>
-                -->
             </div>
-
         </div>
-        
+
         <!-- Chronological Navigation -->
         <div class="mt-24 pt-12 border-t-4 border-black flex justify-between items-center gap-8">
             {{ $artwork := (where .Site.RegularPages "Section" "artwork").ByDate }}
