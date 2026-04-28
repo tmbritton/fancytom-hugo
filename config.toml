@@ -14,3 +14,7 @@ theme = "sketchaday"
   defaultImageWidth = "500"
   fullImageWidth = "1000"
   description = "Portfolio website of artist extraordinaire Fancy Tom"
+
+[author]
+  name = "Fancy Tom"
+  email = "fancytom@example.com"
