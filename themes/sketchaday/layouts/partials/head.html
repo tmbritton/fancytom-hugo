@@ -28,6 +28,11 @@
         {{ $ogTitle = $siteTitle }}
         {{ $ogDesc = $siteDesc }}
         {{ $ogType = "website" }}
+        {{ with (index (where .Site.RegularPages "Section" "artwork").ByDate.Reverse 0) }}
+            {{ with .Params.cloudinaryId }}
+                {{ $ogImage = printf "https://res.cloudinary.com/dodzkb914/image/upload/w_1200,h_630,c_fill,g_auto/%s" . }}
+            {{ end }}
+        {{ end }}
     {{ else if $isContent }}
         {{ $ogDesc = .Summary | plainify | truncate 160 }}
         {{ $ogType = "article" }}
@@ -109,12 +114,19 @@
             {{ $schemaOrg = merge $schemaOrg (dict "image" $ogImage) }}
         {{ end }}
     {{ else if .IsHome }}
+        {{ $homeImage := "" }}
+        {{ with (index (where .Site.RegularPages "Section" "artwork").ByDate.Reverse 0) }}
+            {{ with .Params.cloudinaryId }}
+                {{ $homeImage = printf "https://res.cloudinary.com/dodzkb914/image/upload/w_1200,h_630,c_fill,g_auto/%s" . }}
+            {{ end }}
+        {{ end }}
         {{ $schemaOrg = dict
             "@context" "https://schema.org"
             "@type" "Person"
             "name" $authorName
             "url" $authorURL
             "description" $siteDesc
+            "image" $homeImage
         }}
     {{ else }}
         {{ $schemaOrg = dict
