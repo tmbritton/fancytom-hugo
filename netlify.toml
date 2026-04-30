@@ -1,4 +1,10 @@
 [context.deploy-preview.environment]
   HUGO_VERSION = "0.87.0"
+
 [context.production.environment]
   HUGO_VERSION = "0.87.0"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "all, noai, noimageai"

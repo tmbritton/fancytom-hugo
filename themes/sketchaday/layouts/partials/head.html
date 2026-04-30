@@ -1,8 +1,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{/* ---- Theme Colors ---- */}}
+    <meta name="theme-color" content="#b9b4a7">
+    <meta name="msapplication-TileColor" content="#b9b4a7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
     <link rel="alternate" type="application/rss+xml" title="Fancy Tom Artwork Feed" href="/index.xml">
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    {{/* ---- Open Graph / Twitter Card ---- */}}
+    {{ $siteTitle := .Site.Title }}
+    {{ $siteDesc := (.Site.Params.description | default "Portfolio website of artist extraordinaire Fancy Tom") }}
+
+    {{ $isArt := eq .Type "artwork" }}
+    {{ $isComic := eq .Type "comic" }}
+    {{ $isPost := eq .Type "post" }}
+    {{ $isContent := or $isArt $isComic $isPost }}
+
+    {{ $ogTitle := .Title }}
+    {{ $ogDesc := $siteDesc }}
+    {{ $ogImage := "" }}
+    {{ $ogType := "website" }}
+
+    {{ if .IsHome }}
+        {{ $ogTitle = $siteTitle }}
+        {{ $ogDesc = $siteDesc }}
+        {{ $ogType = "website" }}
+    {{ else if $isContent }}
+        {{ $ogDesc = .Summary | plainify | truncate 160 }}
+        {{ $ogType = "article" }}
+        {{ with .Params.cloudinaryId }}
+            {{ $ogImage = printf "https://res.cloudinary.com/dodzkb914/image/upload/w_1200,h_630,c_fill,g_auto/%s" . }}
+        {{ end }}
+    {{ else if eq .Section "about" }}
+        {{ $ogType = "website" }}
+    {{ else }}
+        {{ $ogDesc = .Summary | default $siteDesc | plainify | truncate 160 }}
+    {{ end }}
+
+    <meta property="og:type" content="{{ $ogType }}">
+    <meta property="og:title" content="{{ $ogTitle }}">
+    <meta property="og:description" content="{{ $ogDesc }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:site_name" content="{{ $siteTitle }}">
+    {{ with $ogImage }}<meta property="og:image" content="{{ . }}">{{ end }}
+
+    {{ if $isContent }}
+    <meta property="article:section" content="{{ .Section }}">
+    {{ with .Params.categories }}{{ range . }}<meta property="article:tag" content="{{ . }}">{{ end }}{{ end }}
+    {{ end }}
+
+    {{ $twCard := "summary_large_image" }}
+    <meta name="twitter:card" content="{{ $twCard }}">
+    <meta name="twitter:title" content="{{ $ogTitle }}">
+    <meta name="twitter:description" content="{{ $ogDesc }}">
+    {{ with $ogImage }}<meta name="twitter:image" content="{{ . }}">{{ end }}
+
+    {{/* ---- JSON-LD Structured Data ---- */}}
+    {{ $authorName := .Site.Params.author.name | default "Fancy Tom" }}
+    {{ $siteURL := .Permalink }}
+    {{ $authorURL := .Site.BaseURL }}
+    {{ $artImage := $ogImage }}
+    {{ $schemaOrg := dict }}
+
+    {{ if eq .Type "artwork" }}
+        {{ $schemaOrg = dict
+            "@context" "https://schema.org"
+            "@type" "VisualArtwork"
+            "name" .Title
+            "url" $siteURL
+            "image" $artImage
+            "description" (.Summary | plainify | truncate 160)
+            "dateCreated" (.Date.Format "2006-01-02")
+            "artworkMedium" (cond (isset .Params "mediums") (index .Params.mediums 0) "mixed")
+            "creator" (dict
+                "@type" "Person"
+                "name" $authorName
+                "url" $authorURL
+            )
+        }}
+        {{ with .Params.width }}
+            {{ $schemaOrg = merge $schemaOrg (dict "width" (printf "%s" .)) }}
+        {{ end }}
+        {{ with .Params.height }}
+            {{ $schemaOrg = merge $schemaOrg (dict "height" (printf "%s" .)) }}
+        {{ end }}
+    {{ else if $isContent }}
+        {{ $schemaOrg = dict
+            "@context" "https://schema.org"
+            "@type" "Article"
+            "headline" .Title
+            "url" $siteURL
+            "description" (.Summary | plainify | truncate 160)
+            "datePublished" (.Date.Format "2006-01-02")
+            "author" (dict
+                "@type" "Person"
+                "name" $authorName
+                "url" $authorURL
+            )
+            "publisher" (dict
+                "@type" "Organization"
+                "name" $siteTitle
+            )
+        }}
+        {{ with $ogImage }}
+            {{ $schemaOrg = merge $schemaOrg (dict "image" $ogImage) }}
+        {{ end }}
+    {{ else if .IsHome }}
+        {{ $schemaOrg = dict
+            "@context" "https://schema.org"
+            "@type" "Person"
+            "name" $authorName
+            "url" $authorURL
+            "description" $siteDesc
+        }}
+    {{ else }}
+        {{ $schemaOrg = dict
+            "@context" "https://schema.org"
+            "@type" "WebPage"
+            "name" .Title
+            "url" $siteURL
+            "description" (.Summary | plainify | truncate 160)
+        }}
+    {{ end }}
+
+    <script type="application/ld+json">
+    {{ $schemaOrg | jsonify (dict "indent" "  ") | safeJS }}
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Permanent+Marker&family=Courier+Prime&family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <style>
         :root {
