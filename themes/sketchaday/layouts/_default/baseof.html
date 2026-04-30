@@ -2,6 +2,9 @@
 <html lang="{{ .Site.LanguageCode }}">
 <head>
     {{ partial "head.html" . }}
+    {{ with (templates.Defer (dict "key" "global")) }}
+      {{ partial "css.html" . }}
+    {{ end }}
 </head>
 <body class="p-0 m-0">
     {{ partial "nav.html" . }}
@@ -19,6 +22,5 @@
     {{ partial "streak.html" . }}
 
     {{ partial "footer.html" . }}
-    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
