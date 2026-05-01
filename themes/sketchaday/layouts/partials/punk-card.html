@@ -1,0 +1,12 @@
+<article class="punk-card relative bg-white p-3 border-4 border-black {{ if modBool .Date.Unix 2 }}rotate-2{{ else }}-rotate-2{{ end }} xerox cursor-pointer"
+         onclick="window.location.href='{{ .RelPermalink }}'">
+    {{ $label := "artwork" }}
+    {{ with .Params.categories }}{{ $label = index . 0 }}{{ else }}{{ with .Params.category }}{{ $label = index . 0 }}{{ end }}{{ end }}
+    <div class="absolute -top-3 -right-2 bg-[var(--punk-pink)] text-black mono-font text-[10px] px-2 py-1 font-black uppercase rotate-[9deg]">{{ $label }}</div>
+    <img src="{{ .Params.image | default (printf "https://res.cloudinary.com/dodzkb914/image/upload/w_500,ar_1:1,c_fill,g_auto/%s" .Params.cloudinaryId) }}"
+         class="w-full aspect-square object-cover mb-4" loading="lazy" alt="{{ .Title }}">
+    <div class="flex justify-between items-baseline gap-4">
+        <p class="mono-font text-xs uppercase font-black">{{ .Date.Format "Jan 02, 2006" }}</p>
+        <p class="marker-font text-2xl uppercase leading-tight">{{ .Title }}</p>
+    </div>
+</article>

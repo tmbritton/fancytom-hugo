@@ -68,12 +68,13 @@ body::after {
 }
 
 .punk-card {
-    transition: transform .14s ease, filter .14s ease;
+    transition: transform .14s ease, rotate .14s ease, filter .14s ease;
     mix-blend-mode: normal;
     transform-origin: center;
 }
 .punk-card:hover {
-    transform: scale(1.08) rotate(0deg) !important;
+    transform: scale(1.08) !important;
+    rotate: 0deg !important;
     z-index: 100;
     filter: none;
 }
