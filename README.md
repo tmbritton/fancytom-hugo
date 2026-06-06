@@ -1,63 +1,42 @@
 # fancytom-hugo
 
-A portfolio website for artist **Fancy Tom**, built using the [Hugo](https://gohugo.io/) static site generator.
+Portfolio site for **Fancy Tom** at [fancytom.com](https://fancytom.com). Built with Hugo, Tailwind CSS v4, and Cloudinary for image hosting.
 
-## 🎨 Overview
+## Setup
 
-This project serves as a digital gallery and blog to showcase Fancy Tom's artwork, comics, and thoughts on the creative process. It is designed with a brutalist, punk-inspired aesthetic.
+Requires [mise](https://mise.jdx.dev/) and [direnv](https://direnv.net/).
 
-### Key Features
-- **Artwork Gallery**: Organized by medium, category, and tags, with images hosted on Cloudinary.
-- **Comics**: Support for multi-page comic strips.
-- **Blog**: Posts about digital painting and art studies.
-- **Custom Themes**: Includes the `sketchaday` and `fancytom` themes.
-- **Automated Deployment**: Configured for deployment via Netlify.
+```bash
+mise install    # installs hugo 0.157.0 + tailwindcss 4.3.0
+direnv allow
+```
 
-## 🛠️ Tech Stack
+## Common commands
 
-- **SSG**: [Hugo](https://gohugo.io/)
-- **Styling**: Sass (SCSS)
-- **Image Hosting**: [Cloudinary](https://cloudinary.com/)
-- **Deployment**: [Netlify](https://www.netlify.com/)
-- **Content**: Markdown with YAML front matter
+```bash
+make serve                           # local server at http://localhost:1313
+make build                           # production build → public/
 
-## 📁 Project Structure
+make artwork 2026-06-06-title.md     # new artwork file
+make comic title.md                  # new comic file
+make post title.md                   # new post file
+```
 
-- `config.toml`: Main site configuration (baseURL, title, taxonomies, etc.).
-- `content/`: The heart of the site.
-  - `artwork/`: Individual artwork entries.
-  - `comic/`: Comic series and episodes.
-  - `post/`: Blog posts and tutorials.
-  - `about.md`, `contact.md`, etc.: Static pages.
-- `themes/`: 
-  - `sketchaday/`: The active theme, focusing on a brutalist/punk aesthetic.
-  - `fancytom/`: A custom theme with specific layout components.
-- `static/`: Static assets like favicons.
-- `archetypes/`: Templates for creating new content (artwork, comics, default).
-- `netlify.toml`: Netlify build settings.
+New files are created as `draft: true` — set to `draft: false` to publish.
 
-## 🚀 Getting Started
+## Content workflow
 
-### Prerequisites
-- Install [Hugo](https://gohugo.io/installation/) (extended version recommended for Sass support).
+1. Upload image to Cloudinary (folder: `sketchaday/`)
+2. Create the markdown file with `hugo new artwork/...`
+3. Fill in `cloudinaryId` and `image` fields in the front matter
+4. Set `draft: false`
+5. Commit and push — Netlify deploys automatically
 
-### Local Development
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/fancytom-hugo.git
-   cd fancytom-hugo
-   ```
-2. Run the Hugo server:
-   ```bash
-   hugo server
-   ```
-3. View the site at `http://localhost:1313/`.
+See `AGENTS.md` for full front matter reference and theme structure.
 
-### Adding Content
-Use the provided archetypes to ensure consistent front matter:
-- For artwork: `hugo new artwork/my-piece.md`
-- For comics: `hugo new comic/my-story.md`
-- For posts: `hugo new post/my-blog-post.md`
+## Tech
 
-## 📜 License
-The custom themes are licensed under the MIT License.
+- **Hugo** 0.157.0 (pinned — 0.158.0+ breaks standalone Tailwind binary support)
+- **Tailwind CSS** v4 standalone binary (no Node/npm)
+- **Cloudinary** for image hosting (user ID: `dodzkb914`)
+- **Netlify** for deployment
