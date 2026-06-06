@@ -1,7 +1,7 @@
 ---
 title: "Lady Sword Spear Axe"
 date: 2026-06-06T12:13:19-05:00
-draft: true
+draft: false 
 cloudinaryId: "lady-spear-sword-axe"
 categories: ["Illustration", "Fantasy"]
 tags: ["fantasy", "barbarian", "frazetta", "warrior", "sword"]
