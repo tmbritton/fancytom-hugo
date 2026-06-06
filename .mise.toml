@@ -1,0 +1,6 @@
+[tools]
+hugo = "0.157.0"
+# aqua installs musl build which won't run on glibc (Fedora); after `mise install`,
+# replace ~/.local/share/mise/installs/aqua-tailwindlabs-tailwindcss/<ver>/tailwindcss
+# with the glibc build: https://github.com/tailwindlabs/tailwindcss/releases/download/v<ver>/tailwindcss-linux-x64
+"aqua:tailwindlabs/tailwindcss" = "4.3.0"
