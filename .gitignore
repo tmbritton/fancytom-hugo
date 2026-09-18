@@ -3,6 +3,7 @@ resources
 .vscode
 .DS_Store
 public
+hugo_stats.json
 Thumbs.db
 ehthumbs.db
 Desktop.ini
